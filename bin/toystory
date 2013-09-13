@@ -2,11 +2,13 @@
 
 require 'optparse'
 require 'methadone'
-require 'toystory.rb'
+require 'toystory'
+require 'validations'
 
 class App
   include Methadone::Main
   include Methadone::CLILogging
+  extend Validations
 
   main do |file|
     File.readlines(file).each do |line|
@@ -18,10 +20,6 @@ class App
       # Do movement
     end  
   end
-  
-  def validate_movement
-  end
-
 
   description "Drive a nifty little virtual robot on a 5x5 grid"
 
