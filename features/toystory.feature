@@ -9,5 +9,8 @@ Feature: My bootstrapped app kinda works
     And the banner should be present
     And the banner should document that this app takes options
     And the following options should be documented:
-      |--version|
-    And the banner should document that this app takes no arguments
+        |--version|
+    And the banner should document that this app takes options
+    And the banner should document that this app's arguments are:
+      | file  | which is required |
+      | moves | which is optional |
