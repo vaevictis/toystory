@@ -8,31 +8,25 @@ class App
   include Methadone::Main
   include Methadone::CLILogging
 
-  main do # Add args you want: |like,so|
-    # your program code here
-    # You can access CLI options via
-    # the options Hash
+  main do |file|
+    File.readlines(file).each do |line|
+      # Validate line syntax
+      validate_movement line
+      
+      # Validate movement safety
+      
+      # Do movement
+    end  
+  end
+  
+  def validate_movement
   end
 
-  # supplemental methods here
-
-  # Declare command-line interface here
 
   description "Drive a nifty little virtual robot on a 5x5 grid"
-  #
-  # Accept flags via:
-  # on("--flag VAL","Some flag")
-  # options[flag] will contain VAL
-  #
-  # Specify switches via:
-  # on("--[no-]switch","Some switch")
-  #
-  # Or, just call OptionParser methods on opts
-  #
-  # Require an argument
-  arg :file
-  #
-  # # Make an argument optional
+
+
+  arg :file  
   arg :moves, :optional
 
   version Toystory::VERSION
