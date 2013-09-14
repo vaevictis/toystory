@@ -13,11 +13,16 @@ class App
   main do |file|
     File.readlines(file).each do |line|
       # Validate line syntax
-      validate_movement line
-      
+      if validate_movement(line)
+        p "Valid move"
       # Validate movement safety
       
       # Do movement
+      
+      # Output movement
+      else
+        p 'Wrong move'
+      end
     end  
   end
 

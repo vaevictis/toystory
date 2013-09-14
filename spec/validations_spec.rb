@@ -23,5 +23,10 @@ describe Validations do
        @dummy_class.validate_movement('PLACE 3,2,SOUTH').should be_true
     end
     
+    it "ensures syntactically incorrect movements are caught" do
+      @dummy_class.validate_movement('').should be_false
+      @dummy_class.validate_movement('LOCOMOTE').should be_false
+    end
+    
   end
 end
