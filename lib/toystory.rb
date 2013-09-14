@@ -1,5 +1,5 @@
-require "toystory/version"
+require 'toystory/version'
 
 module Toystory
-  # Your code goes here...
+  SIMPLE_MOVES = ['MOVE','LEFT','RIGHT','REPORT']
 end
