@@ -2,8 +2,8 @@
 
 require 'optparse'
 require 'methadone'
-require 'toystory'
 require 'validations'
+require 'robot'
 
 class App
   include Methadone::Main
@@ -11,12 +11,11 @@ class App
   extend Validations
 
   main do |file|
+    adam = Robot.new
+    
     File.readlines(file).each do |line|
-      # Validate line syntax
-      if validate_movement(line)
-        p "Valid move"
-      # Validate movement safety
-      
+      if validate_movement(line.chomp!)
+        adam.move!(line)
       # Do movement
       
       # Output movement
