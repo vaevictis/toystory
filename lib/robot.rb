@@ -1,14 +1,14 @@
 require 'validations'
 
 class Robot
-  attr_accessor :positioned,
+  attr_accessor :placed,
                 :x,
                 :y,
                 :orientation
   
   ORIENTATIONS = ['NORTH', 'EAST', 'SOUTH', 'WEST']              
   def initialize
-    @positioned = false
+    @placed = false
     @x = nil
     @y = nil
     @orientation = ''
@@ -21,11 +21,14 @@ class Robot
       @x = position[0].to_i
       @y = position[1].to_i
       @orientation = position[2]
-      @positioned = true
+      @placed = true
       return
     end
     
-    return unless @positioned
+    if !@placed
+      p 'Not placed yet'
+      return
+    end
     
     case movement
     when 'MOVE'
@@ -75,10 +78,10 @@ class Robot
   end
   
   def report
-    if @positioned
+    if @placed
       p "#{@x},#{@y},#{@orientation}"
     else
-      'NOT POSITIONED'
+      'NOT placed'
     end
   end
 end

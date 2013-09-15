@@ -6,3 +6,7 @@ Feature: User can launch toystory with a file containing wrong moves and get rep
   Scenario: App gracefully handles wrong moves from a file read
     When I run `toystory /Users/vaevictis/valise/develop/ruby/toystory/wrong_moves.txt`
     Then the output should contain "Wrong move"
+    
+  Scenario: App reports a useful message when asked for report while robot is still not placed
+    When I run `toystory /Users/vaevictis/valise/develop/ruby/toystory/moves_without_correct_placement.txt`
+    Then the output should contain "Not placed yet"
