@@ -2,84 +2,84 @@ require 'validations'
 
 class Robot
   include Validations
+
+  ORIENTATIONS = ['NORTH', 'EAST', 'SOUTH', 'WEST']              
   
   attr_accessor :placed,
                 :x,
                 :y,
-                :orientation
+                :orientation,
+                :log
   
-  ORIENTATIONS = ['NORTH', 'EAST', 'SOUTH', 'WEST']              
   def initialize
-    @orientation = ''
     @placed      = false
     @x           = nil
     @y           = nil
+    @orientation = ''
+    @log         = ''
   end
   
   def move!(movement)
     movement.chomp!
+    @log = 'movement: ' + movement
+    
+    if valid_syntax(movement)    
+      if movement.start_with? 'PLACE'
+        place(movement)
+      elsif safe_move(movement)
+        self.send(movement.downcase)
+      end
+    end
+    
+    p @log
+    @log = ''
+  end
+
+  private
   
-    return unless valid_syntax(movement)
+  def place(movement)
+    position = movement.split(' ')[1].split(',')
     
-    # log
-    p 'movement: ' + movement
-    
-    if movement =~ PLACE_MOVE
-      position = movement.split(' ')[1].split(',')
-      @x = position[0].to_i
-      @y = position[1].to_i
-      @orientation = position[2]
-      @placed = true
-      return
-    end
-    
-    if !@placed
-      p 'Not placed yet'
-      return
-    end
-
-    # If reaching here, robot is placed
-
-    case movement
-    when 'MOVE'
-      return unless safe_move(movement)
-      
-      case @orientation
-      when 'NORTH'
-        @y += 1
-      when 'SOUTH'
-        @y -= 1
-      when 'WEST'
-        @x -= 1
-      when 'EAST'
-        @x += 1
-      end
-      
-    when 'LEFT'
-      orientation_index = ORIENTATIONS.index(@orientation) - 1
-      
-      if orientation_index < 0
-        orientation_index += 4
-      end
-      @orientation = ORIENTATIONS[orientation_index]
-      
-    when 'RIGHT'
-      orientation_index = ORIENTATIONS.index(@orientation) + 1
-      if orientation_index > 3
-        orientation_index -= 4
-      end
-      @orientation = ORIENTATIONS[orientation_index]
-      
-    when 'REPORT'
-      report
+    @x           = position[0].to_i
+    @y           = position[1].to_i
+    @orientation = position[2]
+    @placed      = true
+  end
+  
+  def move
+    case @orientation
+    when 'NORTH'
+      @y += 1
+    when 'SOUTH'
+      @y -= 1
+    when 'WEST'
+      @x -= 1
+    when 'EAST'
+      @x += 1
     end
   end
   
-  def report
-    if @placed
-      p "#{@x},#{@y},#{@orientation}"
-    else
-      'NOT placed'
+  def left
+    orientation_index = ORIENTATIONS.index(@orientation) - 1
+    
+    if orientation_index < 0
+      orientation_index += 4
     end
+    @orientation = ORIENTATIONS[orientation_index]
+  end
+  
+  def right
+    orientation_index = ORIENTATIONS.index(@orientation) + 1
+    
+    if orientation_index > 3
+      orientation_index -= 4
+    end
+    @orientation = ORIENTATIONS[orientation_index]
+  end
+
+  public
+  
+  def report
+    @log = @placed ? "#{@x},#{@y},#{@orientation}" : 'Not placed yet'
   end
 end

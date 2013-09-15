@@ -9,7 +9,7 @@ describe Robot do
   
   describe "#report" do
     it "reports the robot position when not placed yet" do
-      @eve.report.should == "NOT placed"
+      @eve.report.should == "Not placed yet"
     end
     
     it "reports the robot position when placed" do
