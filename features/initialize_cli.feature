@@ -9,7 +9,9 @@ Feature: Toystory CLI app behaves
     And the banner should be present
     And the banner should document that this app takes options
     And the following options should be documented:
-        |--version|
+        | --version   |
+        | --log-level |
+        | --help      |
     And the banner should document that this app takes options
     And the banner should document that this app's arguments are:
       | file  | which is required |

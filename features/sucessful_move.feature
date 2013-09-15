@@ -4,6 +4,6 @@ Feature: User can launch toystory with a file containing simple moves and get re
   So I can apply for a job
 
   Scenario: App properly positions the robot from a file read
-    When I successfully run `toystory /Users/vaevictis/valise/develop/ruby/toystory/moves.txt`
+    When I successfully run `toystory ../../features/moves/moves.txt`
     Then the output should contain "0,1,NORTH"
     
