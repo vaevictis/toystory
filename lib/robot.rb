@@ -1,6 +1,8 @@
 require 'validations'
 
 class Robot
+  include Validations
+  
   attr_accessor :placed,
                 :x,
                 :y,
@@ -8,15 +10,21 @@ class Robot
   
   ORIENTATIONS = ['NORTH', 'EAST', 'SOUTH', 'WEST']              
   def initialize
-    @placed = false
-    @x = nil
-    @y = nil
     @orientation = ''
+    @placed      = false
+    @x           = nil
+    @y           = nil
   end
   
   def move!(movement)
+    movement.chomp!
+  
+    return unless valid_syntax(movement)
+    
+    # log
     p 'movement: ' + movement
-    if movement =~ Validations::PLACE_MOVE
+    
+    if movement =~ PLACE_MOVE
       position = movement.split(' ')[1].split(',')
       @x = position[0].to_i
       @y = position[1].to_i
@@ -29,23 +37,13 @@ class Robot
       p 'Not placed yet'
       return
     end
-    
+
+    # If reaching here, robot is placed
+
     case movement
     when 'MOVE'
-      if @x == 0 && @orientation == 'WEST'
-        p 'dangerous move'
-        return
-      elsif @x == 4 && @orientation == 'EAST'
-        p 'dangerous move'
-        return
-      elsif @y == 0 && @orientation == 'SOUTH'
-        p 'dangerous move'
-        return
-      elsif @y == 4 && @orientation == 'NORTH'
-        p 'dangerous move'
-        return
-      end
-        
+      return unless safe_move(movement)
+      
       case @orientation
       when 'NORTH'
         @y += 1

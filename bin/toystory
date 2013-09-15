@@ -14,14 +14,7 @@ class App
     adam = Robot.new
     
     File.readlines(file).each do |line|
-      if validate_movement(line.chomp!)
-        adam.move!(line)
-      # Do movement
-      
-      # Output movement
-      else
-        p 'Wrong move'
-      end
+      adam.move!(line)
     end  
   end
 
