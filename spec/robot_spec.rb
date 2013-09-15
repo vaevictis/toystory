@@ -34,5 +34,35 @@ describe Robot do
     end
   end
   
+  describe "#left" do
+    it "turns the robot counterclockwise and keeps the orientation one of four cardinal directions" do
+      @eve.x           = 0
+      @eve.y           = 0
+      @eve.orientation = 'NORTH'
+      @eve.placed      = true
+    
+      5.times do
+        @eve.left
+      end
+
+      @eve.orientation.should == 'WEST'
+    end
+  end
+
+  describe "#right" do
+    it "turns the robot clockwise and keeps the orientation one of four cardinal directions" do
+      @eve.x           = 0
+      @eve.y           = 0
+      @eve.orientation = 'NORTH'
+      @eve.placed      = true
+    
+      21.times do
+        @eve.right
+      end
+
+      @eve.orientation.should == 'EAST'
+    end
+  end
+  
 end
 

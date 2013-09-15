@@ -1,3 +1,5 @@
+require 'Methadone'
+
 module Validations
   SIMPLE_MOVES = ['MOVE','LEFT','RIGHT','REPORT']
   PLACE_MOVE   = /PLACE {1}[0-4],[0-4],(NORTH|SOUTH|EAST|WEST)/
@@ -16,7 +18,7 @@ module Validations
   
   def safe_move(movement)
     if !@placed
-      @log += "\nNot placed yet"
+      @log = "Not placed yet"
       return false
     end
     
@@ -28,7 +30,7 @@ module Validations
       || (@y == 0 && @orientation == 'SOUTH') \
       || (@y == 4 && @orientation == 'NORTH')
 
-      p 'Dangerous move'
+      @log = 'Dangerous move'
       false
     else
       true

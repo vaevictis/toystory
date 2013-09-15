@@ -31,11 +31,10 @@ class Robot
       end
     end
     
-    p @log
+    logger = Methadone::CLILogger.new
+    logger.info(@log)
     @log = ''
   end
-
-  private
   
   def place(movement)
     position = movement.split(' ')[1].split(',')
@@ -61,20 +60,12 @@ class Robot
   
   def left
     orientation_index = ORIENTATIONS.index(@orientation) - 1
-    
-    if orientation_index < 0
-      orientation_index += 4
-    end
-    @orientation = ORIENTATIONS[orientation_index]
+    @orientation = ORIENTATIONS[orientation_index.modulo(4)]
   end
   
   def right
     orientation_index = ORIENTATIONS.index(@orientation) + 1
-    
-    if orientation_index > 3
-      orientation_index -= 4
-    end
-    @orientation = ORIENTATIONS[orientation_index]
+    @orientation = ORIENTATIONS[orientation_index.modulo(4)]
   end
 
   public

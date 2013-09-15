@@ -15,4 +15,3 @@ Feature: Toystory CLI app behaves
     And the banner should document that this app takes options
     And the banner should document that this app's arguments are:
       | file  | which is required |
-      | moves | which is optional |

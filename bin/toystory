@@ -18,14 +18,10 @@ class App
     end  
   end
 
+  version     Toystory::VERSION
   description "Drive a nifty little virtual robot on a 5x5 grid"
-
-
-  arg :file  
-  arg :moves, :optional
-
-  version Toystory::VERSION
-
+  arg         :file, :required
+  
   use_log_level_option
 
   go!
