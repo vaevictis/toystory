@@ -24,7 +24,7 @@ describe Validations do
     
     it "ensures syntactically incorrect movements are caught" do
       @dummy_class.valid_syntax('').should be_false
-      @dummy_class.valid_syntax('LOCOMOTE').should be_false
+      @dummy_class.valid_syntax('RANDOM').should be_false
     end
     
     it "ensures moves that place movements outside the table are not executed" do
