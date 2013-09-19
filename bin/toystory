@@ -4,24 +4,28 @@ require 'optparse'
 require 'methadone'
 require 'validations'
 require 'robot'
+require 'table'
 
 class App
   include Methadone::Main
   include Methadone::CLILogging
   extend Validations
-
-  main do |file|
-    adam = Robot.new
+  
+  main do |file|  
+    gaia = Table.new(options[:t].to_i)
+    adam = Robot.new(gaia)
     
     File.readlines(file).each do |line|
       adam.move!(line)
     end  
   end
 
-  version     Toystory::VERSION
-  description "Drive a nifty little virtual robot on a 5x5 grid"
+  description "Drive a nifty little virtual robot on a square grid"
   arg         :file, :required
-  
+  arg         :table_size, :optional
+
+  on("-t TABLE_SIZE", "--table-size", "Pass an optional table size (defaults to #{Table::DEFAULT_TABLE_SIZE})")
+
   use_log_level_option
 
   go!
