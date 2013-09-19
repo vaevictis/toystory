@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Toystory::VERSION
   spec.authors       = ["Guillaume Hammadi"]
   spec.email         = ["ghammadi@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Simple game to control a robot on a square table}
+  spec.summary       = %q{Assignment for a job offer. The goal is to control a virtual robot on a square table through text files containing a definite seriess of moves.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
