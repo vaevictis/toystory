@@ -9,21 +9,23 @@ class Robot
                 :x,
                 :y,
                 :orientation,
-                :log
+                :log,
+                :table
   
-  def initialize
+  def initialize(table)
     @placed      = false
     @x           = nil
     @y           = nil
     @orientation = ''
     @log         = ''
+    @table       = table
   end
   
   def move!(movement)
     movement.chomp!
     @log = 'movement: ' + movement
-    
-    if valid_syntax(movement)    
+
+    if valid_syntax(movement)
       if movement.start_with? 'PLACE'
         place(movement)
       elsif safe_move(movement)
@@ -59,18 +61,19 @@ class Robot
   end
   
   def left
-    orientation_index = ORIENTATIONS.index(@orientation) - 1
-    @orientation = ORIENTATIONS[orientation_index.modulo(4)]
+    orientation_index = Robot::ORIENTATIONS.index(@orientation) - 1
+    @orientation      = Robot::ORIENTATIONS[orientation_index.modulo(Robot::ORIENTATIONS.size)]
   end
   
   def right
-    orientation_index = ORIENTATIONS.index(@orientation) + 1
-    @orientation = ORIENTATIONS[orientation_index.modulo(4)]
+    orientation_index = Robot::ORIENTATIONS.index(@orientation) + 1
+    @orientation      = Robot::ORIENTATIONS[orientation_index.modulo(Robot::ORIENTATIONS.size)]
   end
 
   public
   
   def report
-    @log = @placed ? "#{@x},#{@y},#{@orientation}" : 'Not placed yet'
+    @log = 'report: '
+    @log += @placed ? "#{@x},#{@y},#{@orientation}" : 'Not placed yet'
   end
 end

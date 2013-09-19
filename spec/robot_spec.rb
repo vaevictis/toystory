@@ -1,15 +1,15 @@
 require_relative '../lib/robot'
 require_relative '../lib/validations'
 
-
 describe Robot do
   before(:each) do
-    @eve = Robot.new
+    @table = double('table').as_null_object
+    @eve  = Robot.new(@table)
   end
   
   describe "#report" do
     it "reports the robot position when not placed yet" do
-      @eve.report.should == "Not placed yet"
+      @eve.report.should == "report: Not placed yet"
     end
     
     it "reports the robot position when placed" do
@@ -18,7 +18,7 @@ describe Robot do
       @eve.orientation = 'WEST'
       @eve.placed      = true
       
-      @eve.report.should == '1,1,WEST'
+      @eve.report.should == 'report: 1,1,WEST'
     end
   end
   
@@ -30,17 +30,19 @@ describe Robot do
       @eve.placed      = true
       
       @eve.move!('PLACE 1,2,WEST')  
-      @eve.report.should == '1,2,WEST'  
+      @eve.report.should == 'report: 1,2,WEST'  
     end
   end
   
   describe "#left" do
     it "turns the robot counterclockwise and keeps the orientation one of four cardinal directions" do
+      @table.stub(:size) {9}
+      
       @eve.x           = 0
       @eve.y           = 0
       @eve.orientation = 'NORTH'
       @eve.placed      = true
-    
+
       5.times do
         @eve.left
       end
