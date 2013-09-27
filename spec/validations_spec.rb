@@ -22,13 +22,18 @@ describe Validations do
        @dummy_class.valid_syntax('PLACE 3,2,SOUTH').should be_true
     end
     
+    it "ensures the placement moves take into account table size" do
+      
+       @dummy_class.valid_syntax('PLACE 7,7,SOUTH', 9).should be_true
+    end
+    
     it "ensures syntactically incorrect movements are caught" do
       @dummy_class.valid_syntax('').should be_false
       @dummy_class.valid_syntax('RANDOM').should be_false
     end
     
     it "ensures moves that place movements outside the table are not executed" do
-      @dummy_class.valid_syntax('PLACE 5,5,SOUTH').should be_false
+      @dummy_class.valid_syntax('PLACE 9,9,SOUTH').should be_false
     end
   end
 end

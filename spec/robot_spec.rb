@@ -4,7 +4,10 @@ require_relative '../lib/validations'
 describe Robot do
   before(:each) do
     @table = double('table').as_null_object
+    @table.stub(:size) {5}
+    
     @eve  = Robot.new(@table)
+    
   end
   
   describe "#report" do

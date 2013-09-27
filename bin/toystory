@@ -6,7 +6,7 @@ require 'validations'
 require 'robot'
 require 'table'
 
-class App
+class App  
   include Methadone::Main
   include Methadone::CLILogging
   extend Validations
@@ -24,7 +24,7 @@ class App
   arg         :file, :required
   arg         :table_size, :optional
 
-  on("-t TABLE_SIZE", "--table-size", "Pass an optional table size (defaults to #{Table::DEFAULT_TABLE_SIZE})")
+  on("-t TABLE_SIZE", "--table-size", "Pass an optional table size (defaults to #{Validations::DEFAULT_TABLE_SIZE})")
 
   use_log_level_option
 

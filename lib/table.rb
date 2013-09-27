@@ -1,9 +1,9 @@
-class Table
-  DEFAULT_TABLE_SIZE = 5
-  
+require 'validations'
+
+class Table  
   attr_accessor :size
   
-  def initialize(table_size = DEFAULT_TABLE_SIZE)
+  def initialize(table_size = Validations::DEFAULT_TABLE_SIZE)
     @size = table_size
   end
 end
