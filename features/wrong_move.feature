@@ -10,3 +10,8 @@ Feature: User can launch toystory with a file containing wrong moves and get rep
   Scenario: App reports a useful message when asked for report while robot is still not placed
     When I run `toystory ../../features/moves/moves_without_correct_placement.txt`
     Then the output should contain "Not placed yet"
+    
+  Scenario: App doesn't let the robot move out of the table
+    When I run `toystory ../../features/moves/safe_move_out_of_table.txt`
+    Then the output should contain "Dangerous move"
+      

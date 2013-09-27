@@ -36,4 +36,23 @@ describe Validations do
       @dummy_class.valid_syntax('PLACE 9,9,SOUTH').should be_false
     end
   end
+  
+  describe "#safe_move" do
+    
+    before(:each) do
+      @table = double('table').as_null_object
+      @table.stub(:size) {5}
+      
+      @hal = Robot.new(@table)
+    end
+    
+    it 'ensures that a robot on the side of the table cannot move out of it' do
+      @hal.x           = 4
+      @hal.y           = 2
+      @hal.orientation = 'EAST'
+      @hal.placed      = true
+
+      @hal.safe_move('MOVE').should be_false
+    end
+  end
 end

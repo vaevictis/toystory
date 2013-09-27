@@ -24,8 +24,8 @@ class Robot
   def move!(movement)
     movement.chomp!
     @log = 'movement: ' + movement
-
-    if valid_syntax(movement, table.size)
+        
+    if valid_syntax(movement, @table.size)
       if movement.start_with? 'PLACE'
         place(movement)
       elsif safe_move(movement)

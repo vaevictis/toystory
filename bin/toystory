@@ -11,8 +11,9 @@ class App
   include Methadone::CLILogging
   extend Validations
   
-  main do |file|  
-    gaia = Table.new(options[:t].to_i)
+  main do |file|
+    
+    gaia = options[:t].nil? ? Table.new : Table.new(options[:t].to_i)
     adam = Robot.new(gaia)
     
     File.readlines(file).each do |line|
